@@ -2,47 +2,53 @@ const loadTopBars = async () => {
   const url = `https://openapi.programming-hero.com/api/news/categories`
   try {
     const res = await fetch(url);
-  const data = await res.json();
-  displayBars(data.data.news_category);
+    const data = await res.json();
+    displayBars(data.data.news_category);
   }
   catch (error) {
-    alert(error,"Error");
+    alert(error, "Error");
   }
 }
 
 const displayBars = (news_category) => {
+
   const topBarContainer = document.getElementById('top-bar-container');
+
   news_category.forEach(news_category => {
     const topBarUi = document.createElement('ui');
     topBarUi.classList.add('nav-item');
     topBarUi.innerHTML = `
-      <button onclick="loadFullNews('${news_category.category_id}')" id="btn-news" class="nav-link border-0 bg-light" aria-current="page" href="#">${news_category.category_name}</button>
+      <button onclick="loadFullNews('${news_category.category_id}')" id="btn-news" class="nav-link border-0 bg-light active" aria-current="page" href="#">${news_category.category_name}</button>
       `;
+
     topBarContainer.appendChild(topBarUi);
+
   });
+
 }
 
+
 const loadFullNews = async (id) => {
+
   const url = `https://openapi.programming-hero.com/api/news/category/${id}`
   try {
     const res = await fetch(url);
-  const data = await res.json();
-  displayNews(data.data);
+    const data = await res.json();
+    displayNews(data.data);
+
   }
   catch (error) {
-    alert (error,'Erroe');
+    alert(error, 'Erroe');
   }
 }
 
 const displayNews = (data) => {
-  
+
   const displayNewsField = document.getElementById('news-field');
   displayNewsField.innerHTML = ``;
 
-  
-  
   data.forEach(data => {
-    const newsDev = document.createElement('div')
+    const newsDev = document.createElement('div');
     newsDev.classList.add('row', 'g-0', 'mb-4', 'p-3', 'bg-white', 'shadow-sm');
     newsDev.innerHTML = `
                     <div class="col-md-4">
@@ -69,7 +75,6 @@ const displayNews = (data) => {
                         </div>
     `;
     displayNewsField.appendChild(newsDev);
-    
 
     // Modal Section //
     const modalTittle = document.getElementById('phoneDetailModalLabel');
@@ -85,11 +90,6 @@ const displayNews = (data) => {
   });
 
 }
-
-// const displayShowDetails = data =>{
-
-// }
-
 
 loadFullNews();
 loadTopBars();
