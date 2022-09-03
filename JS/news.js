@@ -1,8 +1,13 @@
 const loadTopBars = async () => {
   const url = `https://openapi.programming-hero.com/api/news/categories`
-  const res = await fetch(url);
+  try {
+    const res = await fetch(url);
   const data = await res.json();
   displayBars(data.data.news_category);
+  }
+  catch (error) {
+    alert(error,"Error");
+  }
 }
 
 const displayBars = (news_category) => {
@@ -19,9 +24,14 @@ const displayBars = (news_category) => {
 
 const loadFullNews = async (id) => {
   const url = `https://openapi.programming-hero.com/api/news/category/${id}`
-  const res = await fetch(url);
+  try {
+    const res = await fetch(url);
   const data = await res.json();
   displayNews(data.data);
+  }
+  catch (error) {
+    alert (error,'Erroe');
+  }
 }
 
 const displayNews = (data) => {
